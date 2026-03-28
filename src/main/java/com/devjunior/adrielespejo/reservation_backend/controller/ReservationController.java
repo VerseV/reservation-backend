@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller that exposes endpoints for managing reservations.
+ */
 @RestController
 @RequestMapping("/reservas")
 public class ReservationController {
@@ -20,17 +23,34 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
 
+    /**
+     * Retrieves all reservations.
+     *
+     * @return list of all reservations with HTTP 200
+     */
     @GetMapping
     public ResponseEntity<List<Reservation>> listAll() {
         return ResponseEntity.ok(reservationService.findAll());
     }
 
+    /**
+     * Creates a new reservation.
+     *
+     * @param request the reservation data from the request body
+     * @return the created reservation with HTTP 201
+     */
     @PostMapping
     public ResponseEntity<Reservation> create(@Valid @RequestBody ReservationRequestDto request) {
         Reservation created = reservationService.createReservation(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
+    /**
+     * Cancels a reservation by its id.
+     *
+     * @param id the id of the reservation to cancel
+     * @return HTTP 204 if cancelled successfully
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> cancel(@PathVariable Long id) {
         reservationService.cancelReservation(id);

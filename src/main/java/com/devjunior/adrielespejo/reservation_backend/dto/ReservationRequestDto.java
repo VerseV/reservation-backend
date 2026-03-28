@@ -2,22 +2,21 @@ package com.devjunior.adrielespejo.reservation_backend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class ReservationRequestDto {
-
-    @NotBlank private String customerName;
-    @NotNull private LocalDate date;
-    @NotNull private LocalTime time;
-    @NotBlank private String service;
-}
+/**
+ * DTO for creating a new reservation.
+ *
+ * @param customerName the name of the customer making the reservation
+ * @param date         the date of the reservation
+ * @param time         the time of the reservation
+ * @param service      the service requested
+ */
+public record ReservationRequestDto(
+        @NotBlank String customerName,
+        @NotNull LocalDate date,
+        @NotNull LocalTime time,
+        @NotBlank String service
+) {}
